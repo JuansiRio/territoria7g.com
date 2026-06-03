@@ -112,18 +112,15 @@ button{cursor:pointer;font:inherit;border:none;background:none}
   display:flex;align-items:center;justify-content:space-between;gap:2rem;
 }
 .nav__logo{
-  display:flex;align-items:center;
+  font-family:'Montserrat',sans-serif;
+  font-weight:900;
+  font-size:0.95rem;
+  letter-spacing:-0.02em;
+  color:#fff;
   flex-shrink:0;
+  transition:color 0.3s var(--ease-out);
 }
-.nav__logo-img{
-  height:32px;
-  width:auto;
-  filter:brightness(0) invert(1);
-  transition:filter 0.3s var(--ease-out);
-}
-.nav.scrolled .nav__logo-img{
-  filter:none;
-}
+.nav.scrolled .nav__logo{color:var(--verde)}
 .nav__links{
   display:flex;align-items:center;gap:2rem;
   font-size:0.825rem;font-weight:500;
@@ -159,9 +156,12 @@ button{cursor:pointer;font:inherit;border:none;background:none}
 /* ─── HERO ────────────────────────────────────────────────────────────── */
 .hero{
   min-height:100dvh;
-  background:var(--verde);
-  display:grid;
-  grid-template-columns:1fr 1fr;
+  background:linear-gradient(rgba(36,79,79,0.88), rgba(36,79,79,0.92)),
+    url("Gemini_Generated_Image_2nmuvq2nmuvq2nmu.png");
+  background-size:cover;
+  background-position:center 30%;
+  background-attachment:fixed;
+  display:flex;
   align-items:center;
   position:relative;
   overflow:hidden;
@@ -175,9 +175,10 @@ button{cursor:pointer;font:inherit;border:none;background:none}
   user-select:none;
 }
 .hero__content{
-  grid-column:1;
-  padding:calc(60px + clamp(3rem,8vw,6rem)) clamp(1rem,5vw,2.5rem) clamp(3rem,8vw,6rem) clamp(1rem,5vw,2.5rem);
-  padding-left:max(clamp(1rem,5vw,2.5rem), calc((100vw - var(--max)) / 2 + clamp(1rem,5vw,2.5rem)));
+  width:100%;
+  max-width:var(--max);
+  margin-inline:auto;
+  padding:calc(60px + clamp(3rem,8vw,6rem)) clamp(1rem,5vw,2.5rem) clamp(3rem,8vw,6rem);
 }
 .hero__eyebrow{
   display:inline-flex;align-items:center;gap:8px;
@@ -245,29 +246,10 @@ button{cursor:pointer;font:inherit;border:none;background:none}
 .pillar-chip::before{
   content:'';display:block;width:6px;height:6px;border-radius:50%;background:var(--verde-light);flex-shrink:0;
 }
-/* hero right: large logo mark */
-.hero__mark{
-  grid-column:2;
-  display:flex;align-items:center;justify-content:center;
-  padding-top:60px;
-  opacity:0;
-  animation:fadeScale 1s var(--ease-out) 0.4s forwards;
-}
-.hero__mark img{
-  width:min(62vw,780px);
-  height:auto;
-  filter:drop-shadow(0 24px 48px rgba(0,0,0,.18));
-}
-
 @keyframes fadeUp{
   from{opacity:0;transform:translateY(20px)}
   to{opacity:1;transform:translateY(0)}
 }
-@keyframes fadeScale{
-  from{opacity:0;transform:scale(0.92)}
-  to{opacity:1;transform:scale(1)}
-}
-
 /* ─── SECTION: PROBLEM ───────────────────────────────────────────────── */
 .problem{background:#fff}
 .problem__grid{
@@ -426,6 +408,23 @@ button{cursor:pointer;font:inherit;border:none;background:none}
   background:var(--verde);
   position:relative;overflow:hidden;
 }
+.principles::before{
+  content:'';
+  position:absolute;inset:0;
+  z-index:0;
+  background-image:url("Gemini_Generated_Image_cdoonhcdoonhcdoo.png");
+  background-size:cover;
+  opacity:0.07;
+  mix-blend-mode:luminosity;
+  pointer-events:none;
+}
+.principles > *{
+  position:relative;
+  z-index:1;
+}
+.principles > .principles__bg-num{
+  position:absolute;
+}
 .principles__bg-num{
   position:absolute;right:-2%;top:50%;transform:translateY(-50%);
   font-family:'Montserrat',sans-serif;font-weight:900;
@@ -551,12 +550,6 @@ button{cursor:pointer;font:inherit;border:none;background:none}
 }
 .cta-final__email a{color:var(--verde-light);font-weight:500}
 .cta-final__email a:hover{text-decoration:underline}
-.cta-final__logo{
-  display:block;
-  width:min(420px,72vw);
-  height:auto;
-  margin:0 auto 2.5rem;
-}
 .cta-whatsapp{
   display:inline-flex;align-items:center;gap:14px;
   margin-top:1.75rem;padding:1.1rem 1.75rem;
@@ -596,11 +589,9 @@ button{cursor:pointer;font:inherit;border:none;background:none}
   display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
 }
 .footer__brand{
-  display:flex;align-items:center;gap:10px;
   font-family:'Montserrat',sans-serif;font-weight:900;
   font-size:0.9rem;color:rgba(245,247,246,0.5);
 }
-.footer__brand svg{width:28px;height:28px;opacity:0.5}
 .footer__links{
   display:flex;align-items:center;gap:1.5rem;
   font-size:0.8rem;color:rgba(245,247,246,0.4);
@@ -610,15 +601,6 @@ button{cursor:pointer;font:inherit;border:none;background:none}
 
 /* ─── RESPONSIVE ─────────────────────────────────────────────────────── */
 @media(max-width:1024px){
-  .hero{grid-template-columns:1fr}
-  .hero__mark{
-    display:flex;
-    justify-content:center;
-    padding:0 clamp(1rem,5vw,2.5rem) 3rem;
-    margin-top:-1rem;
-  }
-  .hero__mark img{width:min(85vw,520px)}
-  .hero__content{grid-column:1;padding-top:calc(60px + 3rem)}
   .principles__grid{grid-template-columns:repeat(4,1fr)}
   .team__grid{grid-template-columns:repeat(2,1fr)}
 }
@@ -654,9 +636,7 @@ button{cursor:pointer;font:inherit;border:none;background:none}
 <!-- ── NAV ─────────────────────────────────────────────────────────────── -->
 <nav class="nav" id="nav" aria-label="Navegación principal">
   <div class="nav__inner">
-    <a href="#" class="nav__logo" aria-label="TerritorIA 7G inicio">
-      <img src="Logo_con_nombre.png" alt="TerritorIA 7G" class="nav__logo-img">
-    </a>
+    <a href="#" class="nav__logo" aria-label="TerritorIA 7G inicio">TerritorIA 7G</a>
     <ul class="nav__links" id="navLinks" role="list">
       <li><a href="#problema">El problema</a></li>
       <li><a href="#servicios">Servicios</a></li>
@@ -700,10 +680,6 @@ button{cursor:pointer;font:inherit;border:none;background:none}
       <span class="pillar-chip" role="listitem">Interventoría integral</span>
       <span class="pillar-chip" role="listitem">Tecnología y datos</span>
     </div>
-  </div>
-
-  <div class="hero__mark" aria-hidden="true">
-    <img src="Logo_con_nombre.png" alt="">
   </div>
 </section>
 
@@ -1022,8 +998,7 @@ button{cursor:pointer;font:inherit;border:none;background:none}
 <section class="cta-final section" id="contacto" aria-labelledby="cta-h2">
   <div class="cta-final__blob" aria-hidden="true"></div>
   <div class="wrap" style="position:relative">
-    <img src="Logo_con_nombre.png" alt="TerritorIA 7G" class="cta-final__logo reveal">
-    <p class="label cta-final__eyebrow reveal reveal-delay-1">Conversemos</p>
+    <p class="label cta-final__eyebrow reveal">Conversemos</p>
     <h2 class="heading cta-final__title reveal reveal-delay-2" id="cta-h2">
       ¿Sus proyectos se quedan<br>en el papel sin ejecutarse?
     </h2>
@@ -1060,13 +1035,7 @@ button{cursor:pointer;font:inherit;border:none;background:none}
 <footer class="footer" aria-label="Pie de página">
   <div class="wrap">
     <div class="footer__inner">
-      <div class="footer__brand">
-        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M22 26H72L44 94" stroke="rgba(245,247,246,0.5)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M100 46C92 38 80 36 70 42C58 49 56 65 64 75C72 85 88 86 98 78V64H82" stroke="#A7C36F" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
-        </svg>
-        TerritorIA 7G
-      </div>
+      <div class="footer__brand">TerritorIA 7G</div>
       <nav class="footer__links" aria-label="Links del pie">
         <a href="#problema">El problema</a>
         <a href="#servicios">Servicios</a>
