@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TerritorIA 7G — Convertimos proyectos en resultados reales</title>
+<meta name="description" content="Consultoría estratégica, implementación, interventoría integral y tecnología para proyectos complejos de desarrollo territorial en Colombia y la región.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ─── TOKENS ─────────────────────────────────────────────────────────── */
+:root {
+  --verde:       #244F4F;
+  --verde-mid:   #2D7A73;
+  --verde-light: #A7C36F;
+  --verde-pale:  #6FAF8F;
+  --bg:          #F5F7F6;
+  --bg-card:     #FFFFFF;
+  --ink:         #111111;
+  --ink-muted:   #555F5F;
+  --ink-faint:   #8A9898;
+  --border:      rgba(36,79,79,.12);
+  --radius-sm:   6px;
+  --radius:      12px;
+  --radius-lg:   20px;
+  --ease-out:    cubic-bezier(0.23,1,0.32,1);
+  --ease-in-out: cubic-bezier(0.77,0,0.175,1);
+  --z-nav: 100;
+  --z-overlay: 200;
+  /* layout */
+  --max: 1200px;
+  --gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+/* ─── RESET ──────────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:'Roboto',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.65;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+button{cursor:pointer;font:inherit;border:none;background:none}
+
+/* ─── TYPOGRAPHY ─────────────────────────────────────────────────────── */
+.display{
+  font-family:'Montserrat',sans-serif;
+  font-weight:900;
+  letter-spacing:-0.03em;
+  line-height:1.02;
+  text-wrap:balance;
+}
+.heading{
+  font-family:'Montserrat',sans-serif;
+  font-weight:800;
+  letter-spacing:-0.02em;
+  line-height:1.1;
+  text-wrap:balance;
+}
+.label{
+  font-family:'Roboto',sans-serif;
+  font-weight:700;
+  font-size:0.7rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--verde-light);
+}
+
+/* ─── LAYOUT UTILS ───────────────────────────────────────────────────── */
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:clamp(1rem,5vw,2.5rem)}
+.section{padding-block:clamp(4rem,8vw,7rem)}
+
+/* ─── SCROLL REVEAL ──────────────────────────────────────────────────── */
+.reveal{
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:80ms}
+.reveal-delay-2{transition-delay:160ms}
+.reveal-delay-3{transition-delay:240ms}
+.reveal-delay-4{transition-delay:320ms}
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+}
+
+/* ─── NAV ────────────────────────────────────────────────────────────── */
+.nav{
+  position:fixed;top:0;left:0;right:0;
+  z-index:var(--z-nav);
+  height:60px;
+  display:flex;align-items:center;
+  transition:background 0.3s,backdrop-filter 0.3s,box-shadow 0.3s;
+}
+.nav.scrolled{
+  background:rgba(245,247,246,0.92);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  box-shadow:0 1px 0 var(--border);
+}
+.nav__inner{
+  width:100%;max-width:var(--max);margin-inline:auto;
+  padding-inline:clamp(1rem,5vw,2.5rem);
+  display:flex;align-items:center;justify-content:space-between;gap:2rem;
+}
+.nav__logo{
+  display:flex;align-items:center;
+  flex-shrink:0;
+}
+.nav__logo-img{
+  height:32px;
+  width:auto;
+  filter:brightness(0) invert(1);
+  transition:filter 0.3s var(--ease-out);
+}
+.nav.scrolled .nav__logo-img{
+  filter:none;
+}
+.nav__links{
+  display:flex;align-items:center;gap:2rem;
+  font-size:0.825rem;font-weight:500;
+  color:rgba(245,247,246,0.75);
+  transition:color 0.3s;
+}
+.nav.scrolled .nav__links{color:var(--ink-muted)}
+.nav__links a{
+  position:relative;padding-block:4px;
+  transition:color 0.2s;
+}
+.nav__links a::after{
+  content:'';position:absolute;bottom:0;left:0;right:100%;height:1px;
+  background:var(--verde-light);
+  transition:right 0.25s var(--ease-out);
+}
+.nav__links a:hover::after{right:0}
+.nav__links a:hover{color:var(--verde-light)}
+.nav.scrolled .nav__links a:hover{color:var(--verde)}
+.nav__cta{
+  display:flex;align-items:center;gap:0.4rem;
+  padding:9px 20px;border-radius:999px;
+  font-size:0.825rem;font-weight:700;
+  background:var(--verde-light);color:var(--verde);
+  transition:transform 0.15s var(--ease-out),box-shadow 0.15s;
+}
+.nav__cta:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(167,195,111,.35)}
+.nav__cta:active{transform:scale(0.97)}
+.nav__burger{display:none;flex-direction:column;gap:5px;padding:6px}
+.nav__burger span{display:block;width:22px;height:2px;background:var(--bg);border-radius:2px;transition:background 0.3s,transform 0.3s}
+.nav.scrolled .nav__burger span{background:var(--verde)}
+
+/* ─── HERO ────────────────────────────────────────────────────────────── */
+.hero{
+  min-height:100dvh;
+  background:var(--verde);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+}
+/* decorative watermark */
+.hero__watermark{
+  position:absolute;right:-4%;bottom:-8%;
+  width:55%;max-width:640px;
+  opacity:0.055;
+  pointer-events:none;
+  user-select:none;
+}
+.hero__content{
+  grid-column:1;
+  padding:calc(60px + clamp(3rem,8vw,6rem)) clamp(1rem,5vw,2.5rem) clamp(3rem,8vw,6rem) clamp(1rem,5vw,2.5rem);
+  padding-left:max(clamp(1rem,5vw,2.5rem), calc((100vw - var(--max)) / 2 + clamp(1rem,5vw,2.5rem)));
+}
+.hero__eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--verde-light);margin-bottom:1.75rem;
+  opacity:0;
+  animation:fadeUp 0.7s var(--ease-out) 0.2s forwards;
+}
+.hero__eyebrow::before{
+  content:'';display:block;width:24px;height:2px;background:var(--verde-light);border-radius:1px;
+}
+.hero__h1{
+  font-size:clamp(2.8rem,5.5vw,5rem);
+  color:#fff;
+  margin-bottom:1.5rem;
+  opacity:0;
+  animation:fadeUp 0.8s var(--ease-out) 0.35s forwards;
+}
+.hero__h1 em{color:var(--verde-light);font-style:normal}
+.hero__sub{
+  font-size:clamp(1rem,1.4vw,1.15rem);
+  color:rgba(245,247,246,0.65);
+  max-width:48ch;
+  margin-bottom:2.5rem;
+  opacity:0;
+  animation:fadeUp 0.8s var(--ease-out) 0.5s forwards;
+}
+.hero__actions{
+  display:flex;flex-wrap:wrap;gap:12px;
+  opacity:0;
+  animation:fadeUp 0.8s var(--ease-out) 0.65s forwards;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 28px;border-radius:999px;
+  font-size:0.9rem;font-weight:700;
+  background:var(--verde-light);color:var(--verde);
+  transition:transform 0.15s var(--ease-out),box-shadow 0.2s;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(167,195,111,.4)}
+.btn-primary:active{transform:scale(0.97)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 24px;border-radius:999px;
+  font-size:0.9rem;font-weight:500;
+  border:1px solid rgba(245,247,246,0.25);
+  color:rgba(245,247,246,0.85);
+  transition:border-color 0.2s,background 0.2s;
+}
+.btn-ghost:hover{border-color:rgba(245,247,246,.55);background:rgba(245,247,246,.06)}
+.btn-ghost:active{transform:scale(0.97)}
+.hero__pillars{
+  display:flex;flex-wrap:wrap;gap:12px;
+  margin-top:3rem;
+  opacity:0;
+  animation:fadeUp 0.8s var(--ease-out) 0.8s forwards;
+}
+.pillar-chip{
+  display:flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:999px;
+  border:1px solid rgba(245,247,246,0.15);
+  font-size:0.78rem;font-weight:500;
+  color:rgba(245,247,246,0.7);
+}
+.pillar-chip::before{
+  content:'';display:block;width:6px;height:6px;border-radius:50%;background:var(--verde-light);flex-shrink:0;
+}
+/* hero right: large logo mark */
+.hero__mark{
+  grid-column:2;
+  display:flex;align-items:center;justify-content:center;
+  padding-top:60px;
+  opacity:0;
+  animation:fadeScale 1s var(--ease-out) 0.4s forwards;
+}
+.hero__mark svg{width:min(46vw,520px)}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes fadeScale{
+  from{opacity:0;transform:scale(0.92)}
+  to{opacity:1;transform:scale(1)}
+}
+
+/* ─── SECTION: PROBLEM ───────────────────────────────────────────────── */
+.problem{background:#fff}
+.problem__grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(2rem,4vw,4rem);
+  align-items:start;
+  margin-top:3rem;
+}
+.problem__statement{
+  font-size:clamp(1.25rem,2vw,1.65rem);
+  font-family:'Montserrat',sans-serif;font-weight:800;letter-spacing:-0.02em;
+  line-height:1.25;color:var(--verde);text-wrap:balance;
+}
+.problem__statement em{color:var(--verde-light);font-style:normal}
+.problem__cards{
+  display:grid;grid-template-columns:1fr 1fr;gap:1rem;
+}
+.problem-card{
+  padding:1.25rem 1.25rem 1.25rem 1.5rem;
+  border-radius:var(--radius);
+  background:var(--bg);
+  border-left:3px solid var(--verde);
+  transition:border-color 0.2s,background 0.2s;
+}
+.problem-card:hover{background:#EEF3F3;border-color:var(--verde-mid)}
+.problem-card__num{
+  font-family:'Montserrat',sans-serif;font-weight:900;font-size:0.7rem;
+  letter-spacing:0.08em;color:var(--verde-light);margin-bottom:0.35rem;
+}
+.problem-card h3{font-size:0.9rem;font-weight:700;margin-bottom:0.35rem;color:var(--verde)}
+.problem-card p{font-size:0.82rem;color:var(--ink-muted);line-height:1.5}
+
+/* ─── SECTION: VALUE PROP ────────────────────────────────────────────── */
+.valueprop{background:var(--verde);overflow:hidden;position:relative}
+.valueprop__bg{
+  position:absolute;inset:0;
+  background:repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 40px,
+    rgba(255,255,255,0.025) 40px,
+    rgba(255,255,255,0.025) 41px
+  );
+  pointer-events:none;
+}
+.valueprop__header{margin-bottom:3.5rem}
+.valueprop__super{color:var(--verde-light)}
+.valueprop__title{color:#fff;font-size:clamp(2rem,3.5vw,3rem)}
+.valueprop__grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5px;
+  background:rgba(255,255,255,0.12);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+}
+.vp-item{
+  padding:clamp(1.75rem,3vw,2.5rem);
+  background:var(--verde);
+  transition:background 0.25s;
+  position:relative;
+}
+.vp-item:hover{background:rgba(36,79,79,0.8)}
+.vp-item__num{
+  font-family:'Montserrat',sans-serif;font-weight:900;
+  font-size:2.5rem;letter-spacing:-0.04em;
+  color:var(--verde-light);opacity:0.35;
+  line-height:1;margin-bottom:1.25rem;
+}
+.vp-item h3{
+  font-family:'Montserrat',sans-serif;font-weight:800;
+  font-size:1.1rem;color:#fff;margin-bottom:0.75rem;
+}
+.vp-item p{font-size:0.875rem;color:rgba(245,247,246,0.62);line-height:1.6}
+
+/* ─── SECTION: SERVICES ──────────────────────────────────────────────── */
+.services{background:var(--bg)}
+.services__header{margin-bottom:3rem}
+.services__grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:1.5rem;
+}
+.service-card{
+  padding:2rem;
+  background:var(--bg-card);
+  border-radius:var(--radius-lg);
+  border:1px solid var(--border);
+  transition:transform 0.25s var(--ease-out),box-shadow 0.25s,border-color 0.25s;
+  cursor:default;
+}
+.service-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 48px rgba(36,79,79,.1);
+  border-color:rgba(36,79,79,.25);
+}
+.service-card:active{transform:translateY(-2px) scale(0.99)}
+.service-card__icon{
+  width:48px;height:48px;border-radius:var(--radius-sm);
+  background:rgba(36,79,79,.08);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.25rem;
+}
+.service-card__icon svg{width:24px;height:24px;stroke:var(--verde);fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.service-card h3{
+  font-family:'Montserrat',sans-serif;font-weight:800;
+  font-size:1.1rem;color:var(--verde);margin-bottom:0.5rem;
+}
+.service-card__sub{font-size:0.8rem;font-weight:700;color:var(--verde-light);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:0.75rem}
+.service-card p{font-size:0.875rem;color:var(--ink-muted);line-height:1.65;max-width:52ch}
+.service-card__tags{
+  display:flex;flex-wrap:wrap;gap:6px;margin-top:1.25rem;
+}
+.tag{
+  padding:4px 10px;border-radius:999px;
+  font-size:0.72rem;font-weight:500;
+  background:rgba(36,79,79,.07);
+  color:var(--verde);
+}
+
+/* ─── SECTION: CLIENTS ───────────────────────────────────────────────── */
+.clients{background:#fff}
+.clients__header{margin-bottom:3rem}
+.clients__grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+}
+.client-card{
+  padding:2rem;
+  border-radius:var(--radius-lg);
+  border:1px solid var(--border);
+  background:var(--bg);
+  transition:border-color 0.2s,background 0.2s;
+}
+.client-card:hover{background:var(--bg-card);border-color:rgba(36,79,79,.2)}
+.client-card__icon{
+  width:44px;height:44px;border-radius:var(--radius-sm);
+  background:var(--verde);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.25rem;
+}
+.client-card__icon svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.client-card h3{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:var(--verde);margin-bottom:0.6rem}
+.client-card p{font-size:0.85rem;color:var(--ink-muted);line-height:1.6}
+.client-card__value{
+  margin-top:1rem;padding-top:1rem;
+  border-top:1px solid var(--border);
+  font-size:0.82rem;color:var(--ink);font-style:italic;
+  line-height:1.5;
+}
+
+/* ─── SECTION: 7G PRINCIPLES ─────────────────────────────────────────── */
+.principles{
+  background:var(--verde);
+  position:relative;overflow:hidden;
+}
+.principles__bg-num{
+  position:absolute;right:-2%;top:50%;transform:translateY(-50%);
+  font-family:'Montserrat',sans-serif;font-weight:900;
+  font-size:clamp(14rem,25vw,22rem);letter-spacing:-0.06em;
+  color:rgba(255,255,255,0.035);
+  pointer-events:none;user-select:none;line-height:1;
+}
+.principles__header{margin-bottom:3.5rem}
+.principles__super{color:var(--verde-light)}
+.principles__title{color:#fff;font-size:clamp(2rem,3.5vw,3rem)}
+.principles__sub{color:rgba(245,247,246,0.6);margin-top:0.75rem;max-width:52ch;font-size:0.95rem}
+.principles__grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:1px;
+  background:rgba(255,255,255,0.1);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+}
+.g-item{
+  padding:1.75rem 1.25rem;
+  background:var(--verde);
+  display:flex;flex-direction:column;gap:0.6rem;
+  transition:background 0.25s;
+  cursor:default;
+}
+.g-item:hover{background:rgba(45,122,115,0.9)}
+.g-item__letter{
+  font-family:'Montserrat',sans-serif;font-weight:900;
+  font-size:2.2rem;color:var(--verde-light);line-height:1;
+}
+.g-item__word{
+  font-family:'Montserrat',sans-serif;font-weight:800;
+  font-size:0.8rem;color:#fff;line-height:1.2;
+}
+.g-item__desc{
+  font-size:0.73rem;color:rgba(245,247,246,0.5);line-height:1.5;
+  margin-top:0.25rem;
+}
+
+/* ─── SECTION: TEAM ──────────────────────────────────────────────────── */
+.team{background:var(--bg)}
+.team__header{margin-bottom:3rem}
+.team__grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1.5rem;
+}
+.team-card{
+  background:var(--bg-card);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  border:1px solid var(--border);
+  transition:transform 0.25s var(--ease-out),box-shadow 0.25s;
+}
+.team-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 48px rgba(36,79,79,.1);
+}
+.team-card__photo{
+  width:100%;aspect-ratio:1;
+  background:rgba(36,79,79,.08);
+  position:relative;overflow:hidden;
+}
+.team-card__photo img{
+  width:100%;height:100%;object-fit:cover;object-position:top;
+  transition:transform 0.5s var(--ease-out);
+}
+.team-card:hover .team-card__photo img{transform:scale(1.04)}
+.team-card__photo-placeholder{
+  width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,rgba(36,79,79,0.12),rgba(36,79,79,0.06));
+}
+.team-card__photo-placeholder span{
+  font-family:'Montserrat',sans-serif;font-weight:900;
+  font-size:3rem;color:var(--verde);opacity:0.3;
+}
+.team-card__body{padding:1.25rem}
+.team-card__role{
+  font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--verde-light);margin-bottom:0.3rem;
+}
+.team-card h3{
+  font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.95rem;
+  color:var(--verde);margin-bottom:0.5rem;
+}
+.team-card__creds{font-size:0.78rem;color:var(--ink-muted);line-height:1.5}
+.team-card__years{
+  display:inline-flex;align-items:center;gap:4px;
+  margin-top:0.75rem;padding:4px 10px;
+  border-radius:999px;background:rgba(36,79,79,.07);
+  font-size:0.72rem;font-weight:700;color:var(--verde);
+}
+
+/* ─── SECTION: CTA FINAL ─────────────────────────────────────────────── */
+.cta-final{
+  background:var(--verde);
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.cta-final__blob{
+  position:absolute;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(167,195,111,0.12) 0%,transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+.cta-final__eyebrow{color:var(--verde-light);margin-bottom:1rem}
+.cta-final__title{
+  color:#fff;
+  font-size:clamp(1.75rem,3.5vw,3.25rem);
+  margin-bottom:1.25rem;
+}
+.cta-final__sub{
+  color:rgba(245,247,246,0.6);
+  max-width:50ch;margin-inline:auto;
+  font-size:1rem;margin-bottom:2.5rem;
+}
+.cta-final__email{
+  display:flex;align-items:center;gap:8px;justify-content:center;
+  font-size:0.875rem;color:rgba(245,247,246,0.5);margin-top:1.5rem;
+}
+.cta-final__email a{color:var(--verde-light);font-weight:500}
+.cta-final__email a:hover{text-decoration:underline}
+
+/* ─── FOOTER ─────────────────────────────────────────────────────────── */
+.footer{
+  background:#0E2828;
+  padding:2rem 0;
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+.footer__inner{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+}
+.footer__brand{
+  display:flex;align-items:center;gap:10px;
+  font-family:'Montserrat',sans-serif;font-weight:900;
+  font-size:0.9rem;color:rgba(245,247,246,0.5);
+}
+.footer__brand svg{width:28px;height:28px;opacity:0.5}
+.footer__links{
+  display:flex;align-items:center;gap:1.5rem;
+  font-size:0.8rem;color:rgba(245,247,246,0.4);
+}
+.footer__links a:hover{color:var(--verde-light)}
+.footer__copy{font-size:0.75rem;color:rgba(245,247,246,0.3)}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────────────── */
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr}
+  .hero__mark{display:none}
+  .hero__content{grid-column:1;padding-top:calc(60px + 3rem)}
+  .principles__grid{grid-template-columns:repeat(4,1fr)}
+  .team__grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .nav__links{display:none}
+  .nav__links.open{
+    display:flex;flex-direction:column;align-items:flex-start;gap:1rem;
+    position:fixed;top:60px;left:0;right:0;bottom:0;
+    background:var(--verde);padding:2rem;z-index:var(--z-overlay);
+    font-size:1.2rem;color:rgba(245,247,246,0.85);
+  }
+  .nav__burger{display:flex}
+  .problem__grid{grid-template-columns:1fr}
+  .valueprop__grid{grid-template-columns:1fr}
+  .services__grid{grid-template-columns:1fr}
+  .clients__grid{grid-template-columns:1fr}
+  .principles__grid{grid-template-columns:repeat(2,1fr)}
+  .team__grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:480px){
+  .principles__grid{grid-template-columns:1fr 1fr}
+  .team__grid{grid-template-columns:1fr}
+}
+
+/* ─── SECTION SPACING UTILS ──────────────────────────────────────────── */
+.mt-label{margin-bottom:0.6rem}
+.mt-title{margin-bottom:1rem}
+.mt-sub{margin-bottom:2.5rem;color:var(--ink-muted);max-width:54ch;font-size:0.975rem}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ─────────────────────────────────────────────────────────────── -->
+<nav class="nav" id="nav" aria-label="Navegación principal">
+  <div class="nav__inner">
+    <a href="#" class="nav__logo" aria-label="TerritorIA 7G inicio">
+      <img src="Logo_con_nombre.png" alt="TerritorIA 7G" class="nav__logo-img">
+    </a>
+    <ul class="nav__links" id="navLinks" role="list">
+      <li><a href="#problema">El problema</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#clientes">Clientes</a></li>
+      <li><a href="#equipo">Equipo</a></li>
+    </ul>
+    <a href="#contacto" class="nav__cta">Conversemos</a>
+    <button class="nav__burger" id="burger" aria-label="Menú" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── HERO ────────────────────────────────────────────────────────────── -->
+<section class="hero" aria-labelledby="hero-h1">
+  <!-- large watermark numeral -->
+  <div class="hero__watermark" aria-hidden="true">
+    <svg viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M40 60H280L120 460" stroke="#A7C36F" stroke-width="80" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+  </div>
+
+  <div class="hero__content">
+    <p class="hero__eyebrow" aria-label="Propuesta">Consultoría de desarrollo territorial</p>
+    <h1 class="hero__h1 display" id="hero-h1">
+      Convertimos<br>proyectos en<br><em>resultados reales</em>
+    </h1>
+    <p class="hero__sub">
+      Estrategia, implementación, control y tecnología para que los proyectos avancen en contextos reales y generen resultados sostenibles.
+    </p>
+    <div class="hero__actions">
+      <a href="#contacto" class="btn-primary">
+        Conversemos
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#servicios" class="btn-ghost">Ver servicios</a>
+    </div>
+    <div class="hero__pillars" role="list" aria-label="Áreas de trabajo">
+      <span class="pillar-chip" role="listitem">Consultoría estratégica</span>
+      <span class="pillar-chip" role="listitem">Implementación</span>
+      <span class="pillar-chip" role="listitem">Interventoría integral</span>
+      <span class="pillar-chip" role="listitem">Tecnología y datos</span>
+    </div>
+  </div>
+
+  <div class="hero__mark" aria-hidden="true">
+    <svg viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Large 7G mark -->
+      <path d="M60 80H320L160 460" stroke="rgba(245,247,246,0.12)" stroke-width="90" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M420 160C390 132 350 128 318 148C282 170 278 210 298 238C318 266 360 268 392 248V220H340" stroke="#A7C36F" stroke-width="38" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ── PROBLEM ─────────────────────────────────────────────────────────── -->
+<section class="problem section" id="problema" aria-labelledby="problem-h2">
+  <div class="wrap">
+    <p class="label mt-label reveal">El contexto</p>
+    <h2 class="heading reveal reveal-delay-1" id="problem-h2" style="font-size:clamp(1.6rem,2.5vw,2.2rem);color:var(--verde);max-width:22ch">
+      ¿Por qué tantos proyectos bien diseñados no llegan a buen término?
+    </h2>
+
+    <div class="problem__grid" style="margin-top:3rem">
+      <div class="reveal reveal-delay-1">
+        <p class="problem__statement">
+          Los proyectos fallan en la <em>ejecución</em>, no en el diseño.
+        </p>
+        <p style="margin-top:1.5rem;font-size:0.95rem;color:var(--ink-muted);max-width:46ch;line-height:1.75">
+          Entre el 30% y el 50% de los proyectos de inversión pública en América Latina presentan retrasos, sobrecostos o dificultades en su ejecución. La brecha no está en la planeación: está en la implementación, el control y la información.
+        </p>
+        <p style="margin-top:1.25rem;font-size:0.875rem;font-weight:700;color:var(--verde);padding:1rem 1.25rem;border-left:3px solid var(--verde-light);background:rgba(36,79,79,.04);border-radius:0 var(--radius-sm) var(--radius-sm) 0">
+          "No hacemos consultoría genérica. Hacemos que los proyectos avancen, se controlen y entreguen resultados."
+        </p>
+      </div>
+      <div class="problem__cards reveal reveal-delay-2">
+        <article class="problem-card">
+          <p class="problem-card__num">01</p>
+          <h3>Brecha estrategia / ejecución</h3>
+          <p>Planes bien diseñados que no aterrizan en acciones operativas sostenibles.</p>
+        </article>
+        <article class="problem-card">
+          <p class="problem-card__num">02</p>
+          <h3>Operación fragmentada</h3>
+          <p>Falta de articulación entre áreas, actores y responsables clave.</p>
+        </article>
+        <article class="problem-card">
+          <p class="problem-card__num">03</p>
+          <h3>Baja trazabilidad</h3>
+          <p>Información dispersa que dificulta seguimiento y toma de decisiones.</p>
+        </article>
+        <article class="problem-card">
+          <p class="problem-card__num">04</p>
+          <h3>Presión por resultados</h3>
+          <p>Mayor exigencia para demostrar impacto, eficiencia y sostenibilidad.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── VALUE PROP ──────────────────────────────────────────────────────── -->
+<section class="valueprop section" aria-labelledby="vp-h2">
+  <div class="valueprop__bg" aria-hidden="true"></div>
+  <div class="wrap" style="position:relative">
+    <div class="valueprop__header">
+      <p class="label valueprop__super mt-label reveal">Por qué nosotros</p>
+      <h2 class="heading valueprop__title reveal reveal-delay-1" id="vp-h2">
+        Integramos lo que<br>normalmente está separado
+      </h2>
+    </div>
+    <div class="valueprop__grid reveal reveal-delay-2">
+      <article class="vp-item">
+        <p class="vp-item__num">01</p>
+        <h3>Reducimos riesgos</h3>
+        <p>Integramos control, interventoría y trazabilidad para garantizar cumplimiento técnico, administrativo y financiero a lo largo de todo el ciclo.</p>
+      </article>
+      <article class="vp-item">
+        <p class="vp-item__num">02</p>
+        <h3>Aceleramos la ejecución</h3>
+        <p>Convertimos proyectos en acción con gestión operativa real, articulación de actores y acompañamiento estratégico de principio a fin.</p>
+      </article>
+      <article class="vp-item">
+        <p class="vp-item__num">03</p>
+        <h3>Multiplicamos el impacto</h3>
+        <p>Usamos tecnología y datos para optimizar decisiones, mejorar trazabilidad en tiempo real y escalar resultados de manera sostenible.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ────────────────────────────────────────────────────────── -->
+<section class="services section" id="servicios" aria-labelledby="svc-h2">
+  <div class="wrap">
+    <p class="label mt-label reveal">Servicios</p>
+    <h2 class="heading reveal reveal-delay-1" id="svc-h2" style="color:var(--verde);font-size:clamp(1.75rem,2.8vw,2.5rem);margin-bottom:0.75rem">
+      Lo que hacemos
+    </h2>
+    <p class="mt-sub reveal reveal-delay-2">
+      Cuatro líneas de trabajo que se articulan en un modelo de intervención integral, diseñado para cerrar la brecha entre planeación y resultados.
+    </p>
+
+    <div class="services__grid" style="margin-top:0.5rem">
+      <article class="service-card reveal reveal-delay-1">
+        <div class="service-card__icon" aria-hidden="true">
+          <!-- compass icon -->
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+        </div>
+        <p class="service-card__sub">Línea 1</p>
+        <h3>Consultoría estratégica</h3>
+        <p>Diagnóstico, diseño y arquitectura de proyectos. Definimos el problema, formulamos la lógica de intervención y validamos viabilidad técnica, institucional y financiera.</p>
+        <div class="service-card__tags">
+          <span class="tag">Análisis territorial</span>
+          <span class="tag">Diseño de intervención</span>
+          <span class="tag">Viabilidad técnica</span>
+        </div>
+      </article>
+
+      <article class="service-card reveal reveal-delay-2">
+        <div class="service-card__icon" aria-hidden="true">
+          <!-- play circle icon -->
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        </div>
+        <p class="service-card__sub">Línea 2</p>
+        <h3>Implementación estratégica</h3>
+        <p>Acompañamos la puesta en marcha, coordinamos actores y gestionamos el avance operativo para garantizar que los proyectos avancen del diseño al territorio.</p>
+        <div class="service-card__tags">
+          <span class="tag">Gestión E2E</span>
+          <span class="tag">Articulación de actores</span>
+          <span class="tag">Seguimiento</span>
+        </div>
+      </article>
+
+      <article class="service-card reveal reveal-delay-3">
+        <div class="service-card__icon" aria-hidden="true">
+          <!-- shield check icon -->
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+        <p class="service-card__sub">Línea 3</p>
+        <h3>Interventoría integral</h3>
+        <p>Supervisión técnica, administrativa, financiera, jurídica, ambiental y social de la ejecución. Reducimos riesgos y aseguramos el cumplimiento de estándares.</p>
+        <div class="service-card__tags">
+          <span class="tag">Control técnico</span>
+          <span class="tag">Cumplimiento contractual</span>
+          <span class="tag">Gestión de riesgos</span>
+        </div>
+      </article>
+
+      <article class="service-card reveal reveal-delay-4">
+        <div class="service-card__icon" aria-hidden="true">
+          <!-- bar chart icon -->
+          <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
+        </div>
+        <p class="service-card__sub">Línea 4</p>
+        <h3>Tecnología y datos</h3>
+        <p>Diseñamos e implementamos plataformas de trazabilidad, analítica y automatización que permiten decidir con evidencia y escalar el impacto de las intervenciones.</p>
+        <div class="service-card__tags">
+          <span class="tag">Plataformas SaaS</span>
+          <span class="tag">Dashboards</span>
+          <span class="tag">Automatización</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ── CLIENTS ─────────────────────────────────────────────────────────── -->
+<section class="clients section" id="clientes" aria-labelledby="cli-h2">
+  <div class="wrap">
+    <p class="label mt-label reveal">Segmentos</p>
+    <h2 class="heading reveal reveal-delay-1" id="cli-h2" style="color:var(--verde);font-size:clamp(1.75rem,2.8vw,2.5rem);margin-bottom:0.75rem">
+      Con quiénes trabajamos
+    </h2>
+    <p class="mt-sub reveal reveal-delay-2">
+      Acompañamos organizaciones que necesitan ejecutar proyectos complejos, coordinar actores y demostrar resultados medibles.
+    </p>
+
+    <div class="clients__grid" style="margin-top:0.5rem">
+      <article class="client-card reveal reveal-delay-1">
+        <div class="client-card__icon" aria-hidden="true">
+          <!-- building icon -->
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <h3>Entidades públicas</h3>
+        <p>Ministerios, gobernaciones, alcaldías, agencias y entidades descentralizadas que necesitan estructurar, aterrizar o acompañar la implementación de políticas, programas y proyectos.</p>
+        <p class="client-card__value">Obtienen apoyo especializado para asegurar implementación efectiva en territorio, con sistemas de seguimiento que permiten tomar decisiones informadas y demostrar resultados.</p>
+      </article>
+
+      <article class="client-card reveal reveal-delay-2">
+        <div class="client-card__icon" aria-hidden="true">
+          <!-- globe icon -->
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <h3>Cooperación y banca de desarrollo</h3>
+        <p>Agencias, fundaciones, programas multilaterales y bancos de desarrollo que financian intervenciones territoriales y requieren aliados técnicos para diseñar, acompañar y monitorear sus programas.</p>
+        <p class="client-card__value">Obtienen un aliado que asegura que los proyectos financiados estén correctamente estructurados, implementados y monitoreados con trazabilidad real.</p>
+      </article>
+
+      <article class="client-card reveal reveal-delay-3">
+        <div class="client-card__icon" aria-hidden="true">
+          <!-- briefcase icon -->
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <h3>Empresas con proyectos de impacto</h3>
+        <p>Empresas medianas y grandes que desarrollan iniciativas productivas, sociales, ambientales o de sostenibilidad en territorio y necesitan estructurar proyectos viables, articular actores y demostrar impacto.</p>
+        <p class="client-card__value">Obtienen apoyo para estructurar e implementar proyectos ESG alineados con marcos regulatorios, gestionando riesgos y demostrando impacto mediante sistemas de datos.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ── 7G PRINCIPLES ───────────────────────────────────────────────────── -->
+<section class="principles section" aria-labelledby="g7-h2">
+  <div class="principles__bg-num" aria-hidden="true">7G</div>
+  <div class="wrap" style="position:relative">
+    <div class="principles__header">
+      <p class="label principles__super mt-label reveal">Identidad</p>
+      <h2 class="heading principles__title reveal reveal-delay-1" id="g7-h2">Los 7 principios</h2>
+      <p class="principles__sub reveal reveal-delay-2">
+        Las 7G son el núcleo de cómo TerritorIA trabaja. Cada G sintetiza un principio técnico, estratégico y operativo que guía todas nuestras intervenciones.
+      </p>
+    </div>
+
+    <div class="principles__grid reveal reveal-delay-2">
+      <article class="g-item">
+        <p class="g-item__letter">G</p>
+        <p class="g-item__word">Guiar con evidencia</p>
+        <p class="g-item__desc">Decisiones basadas en datos, sistemas de seguimiento y herramientas que mejoran trazabilidad.</p>
+      </article>
+      <article class="g-item">
+        <p class="g-item__letter">G</p>
+        <p class="g-item__word">Garantizar la ejecución</p>
+        <p class="g-item__desc">Coherencia entre lo planeado y lo ejecutado. Acompañamos hasta la materialización en territorio.</p>
+      </article>
+      <article class="g-item">
+        <p class="g-item__letter">G</p>
+        <p class="g-item__word">Gestionar con rigor</p>
+        <p class="g-item__desc">Metodologías estructuradas y estándares de calidad en formulación, implementación y seguimiento.</p>
+      </article>
+      <article class="g-item">
+        <p class="g-item__letter">G</p>
+        <p class="g-item__word">Generar resultados</p>
+        <p class="g-item__desc">Indicadores, monitoreo y evaluación que permiten evidenciar el impacto de las intervenciones.</p>
+      </article>
+      <article class="g-item">
+        <p class="g-item__letter">G</p>
+        <p class="g-item__word">Gobernar con responsabilidad</p>
+        <p class="g-item__desc">Gestión transparente y ética en contextos donde se administran recursos públicos o de cooperación.</p>
+      </article>
+      <article class="g-item">
+        <p class="g-item__letter">G</p>
+        <p class="g-item__word">Gestionar la complejidad</p>
+        <p class="g-item__desc">Adaptación a las dinámicas territoriales, promoviendo soluciones pertinentes y sostenibles.</p>
+      </article>
+      <article class="g-item">
+        <p class="g-item__letter">G</p>
+        <p class="g-item__word">Generar aprendizaje</p>
+        <p class="g-item__desc">Gestión del conocimiento flexible basada en retroalimentación y mejora continua de cada proyecto.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ── TEAM ────────────────────────────────────────────────────────────── -->
+<section class="team section" id="equipo" aria-labelledby="team-h2">
+  <div class="wrap">
+    <p class="label mt-label reveal">Equipo</p>
+    <h2 class="heading reveal reveal-delay-1" id="team-h2" style="color:var(--verde);font-size:clamp(1.75rem,2.8vw,2.5rem);margin-bottom:0.75rem">
+      Las personas detrás del trabajo
+    </h2>
+    <p class="mt-sub reveal reveal-delay-2">
+      Tres socios fundadores con experiencia complementaria en política pública, gestión territorial, operaciones y tecnología.
+    </p>
+
+    <div class="team__grid" style="margin-top:0.5rem">
+      <article class="team-card reveal reveal-delay-1">
+        <div class="team-card__photo">
+          <img src="Luisa_Territoria7g.jpg" alt="Luisa Fernanda Gaviria Forero" loading="lazy" onerror="this.parentNode.innerHTML='<div class=&quot;team-card__photo-placeholder&quot;><span>LG</span></div>'">
+        </div>
+        <div class="team-card__body">
+          <p class="team-card__role">CEO · Socia fundadora</p>
+          <h3>Luisa Fernanda Gaviria Forero</h3>
+          <p class="team-card__creds">Psicóloga · Magíster en Políticas Públicas · Magíster en Gestión Pública · Especialista en Gerencia Ambiental (en formación)</p>
+          <span class="team-card__years">17 años de experiencia</span>
+        </div>
+      </article>
+
+      <article class="team-card reveal reveal-delay-2">
+        <div class="team-card__photo">
+          <img src="mafe_Territoria7g.jpg" alt="María Fernanda Ospina Hómez" loading="lazy" onerror="this.parentNode.innerHTML='<div class=&quot;team-card__photo-placeholder&quot;><span>MO</span></div>'">
+        </div>
+        <div class="team-card__body">
+          <p class="team-card__role">COO · Socia fundadora</p>
+          <h3>María Fernanda Ospina Hómez</h3>
+          <p class="team-card__creds">Psicóloga · Maestría en Estudios Interdisciplinarios sobre Desarrollo (en curso) · Operación E2E · Gestión de equipos y fricción</p>
+          <span class="team-card__years">4 años de experiencia</span>
+        </div>
+      </article>
+
+      <article class="team-card reveal reveal-delay-3">
+        <div class="team-card__photo">
+          <img src="Juansi_Territoria7g.jpg" alt="Juan Simón Obando Zapata" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'team-card__photo-placeholder\'><span>JO</span></div>'">
+        </div>
+        <div class="team-card__body">
+          <p class="team-card__role">CFO · Socio fundador</p>
+          <h3>Juan Simón Obando Zapata</h3>
+          <p class="team-card__creds">Finanzas de proyecto · Control y riesgo · Eficiencia con automatización · Ejecución y control público/mixto</p>
+          <span class="team-card__years">10+ años de experiencia</span>
+        </div>
+      </article>
+
+      <article class="team-card reveal reveal-delay-4">
+        <div class="team-card__photo">
+          <img src="Davo_Territoria7g.png" alt="José David Torres Huertas" loading="lazy" onerror="this.parentNode.innerHTML='<div class=&quot;team-card__photo-placeholder&quot;><span>JT</span></div>'">
+        </div>
+        <div class="team-card__body">
+          <p class="team-card__role">CTO · Socio fundador</p>
+          <h3>José David Torres Huertas</h3>
+          <p class="team-card__creds">Ingeniero de Sistemas · Especialista en Gerencia para la Transformación Digital (en formación) · Plataformas a escala</p>
+          <span class="team-card__years">6+ años de experiencia</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA FINAL ───────────────────────────────────────────────────────── -->
+<section class="cta-final section" id="contacto" aria-labelledby="cta-h2">
+  <div class="cta-final__blob" aria-hidden="true"></div>
+  <div class="wrap" style="position:relative">
+    <p class="label cta-final__eyebrow reveal">Conversemos</p>
+    <h2 class="heading cta-final__title reveal reveal-delay-1" id="cta-h2">
+      ¿Sus proyectos se quedan<br>en el papel sin ejecutarse?
+    </h2>
+    <p class="cta-final__sub reveal reveal-delay-2">
+      Estamos listos para acompañarle a convertir sus ideas en resultados reales en territorio.
+    </p>
+    <div class="reveal reveal-delay-3">
+      <a href="mailto:territoria7g@gmail.com" class="btn-primary" style="display:inline-flex">
+        Escribirnos
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <p class="cta-final__email reveal reveal-delay-4">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <a href="mailto:territoria7g@gmail.com">territoria7g@gmail.com</a>
+      &nbsp;·&nbsp;
+      <a href="https://territoria7g.com" target="_blank" rel="noopener">territoria7g.com</a>
+    </p>
+  </div>
+</section>
+
+<!-- ── FOOTER ──────────────────────────────────────────────────────────── -->
+<footer class="footer" aria-label="Pie de página">
+  <div class="wrap">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M22 26H72L44 94" stroke="rgba(245,247,246,0.5)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M100 46C92 38 80 36 70 42C58 49 56 65 64 75C72 85 88 86 98 78V64H82" stroke="#A7C36F" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+        </svg>
+        TerritorIA 7G
+      </div>
+      <nav class="footer__links" aria-label="Links del pie">
+        <a href="#problema">El problema</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#clientes">Clientes</a>
+        <a href="#equipo">Equipo</a>
+        <a href="mailto:territoria7g@gmail.com">Contacto</a>
+      </nav>
+      <p class="footer__copy">© 2026 TerritorIA 7G. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── NAV scroll state ───────────────────────────────────── */
+const nav = document.getElementById('nav');
+const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+/* ── Mobile menu ────────────────────────────────────────── */
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('navLinks');
+burger.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  burger.setAttribute('aria-expanded', open);
+});
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    burger.setAttribute('aria-expanded','false');
+  });
+});
+
+/* ── Scroll reveal ──────────────────────────────────────── */
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
+revealEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
