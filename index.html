@@ -188,15 +188,25 @@ button{cursor:pointer;font:inherit;border:none;background:none}
   padding:calc(60px + clamp(3rem,8vw,6rem)) clamp(1rem,5vw,2.5rem) clamp(3rem,8vw,6rem);
 }
 .hero__brand{
-  margin-bottom:2.5rem;
+  display:block;
+  margin-bottom:2rem;
 }
-.hero__brand-logo{
-  height:48px;
-  width:auto;
-  filter:brightness(0) invert(1);
-  opacity:0.95;
-  animation:fadeUp 0.7s cubic-bezier(0.23,1,0.32,1) 0.1s forwards;
-  opacity:0;
+.hero__brand-wrap{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,0.96);
+  border-radius:10px;
+  padding:12px 24px;
+  width:260px;
+  height:72px;
+  overflow:hidden;
+}
+.hero__brand-wrap img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
 }
 .hero__eyebrow{
   display:inline-flex;align-items:center;gap:8px;
@@ -681,7 +691,9 @@ button{cursor:pointer;font:inherit;border:none;background:none}
 
   <div class="hero__content">
     <div class="hero__brand">
-      <img src="Logo_con_nombre.png" alt="TerritorIA 7G" class="hero__brand-logo">
+      <div class="hero__brand-wrap">
+        <img src="Logo_con_nombre.png" alt="TerritorIA 7G">
+      </div>
     </div>
     <p class="hero__eyebrow" aria-label="Propuesta">Consultoría de desarrollo territorial</p>
     <h1 class="hero__h1 display" id="hero-h1">
