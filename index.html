@@ -112,15 +112,22 @@ button{cursor:pointer;font:inherit;border:none;background:none}
   display:flex;align-items:center;justify-content:space-between;gap:2rem;
 }
 .nav__logo{
-  font-family:'Montserrat',sans-serif;
-  font-weight:900;
-  font-size:0.95rem;
-  letter-spacing:-0.02em;
-  color:#fff;
+  display:flex;align-items:center;
   flex-shrink:0;
-  transition:color 0.3s var(--ease-out);
 }
-.nav.scrolled .nav__logo{color:var(--verde)}
+.nav__logo-img{
+  height:32px;
+  width:auto;
+  filter:brightness(0) invert(1);
+  transition:opacity 0.3s ease, filter 0.3s ease;
+}
+.nav.scrolled .nav__logo-img{
+  filter:none;
+}
+.nav.at-top .nav__logo-img{
+  opacity:0;
+  pointer-events:none;
+}
 .nav__links{
   display:flex;align-items:center;gap:2rem;
   font-size:0.825rem;font-weight:500;
@@ -179,6 +186,17 @@ button{cursor:pointer;font:inherit;border:none;background:none}
   max-width:var(--max);
   margin-inline:auto;
   padding:calc(60px + clamp(3rem,8vw,6rem)) clamp(1rem,5vw,2.5rem) clamp(3rem,8vw,6rem);
+}
+.hero__brand{
+  margin-bottom:2.5rem;
+}
+.hero__brand-logo{
+  height:48px;
+  width:auto;
+  filter:brightness(0) invert(1);
+  opacity:0.95;
+  animation:fadeUp 0.7s cubic-bezier(0.23,1,0.32,1) 0.1s forwards;
+  opacity:0;
 }
 .hero__eyebrow{
   display:inline-flex;align-items:center;gap:8px;
@@ -636,7 +654,9 @@ button{cursor:pointer;font:inherit;border:none;background:none}
 <!-- ── NAV ─────────────────────────────────────────────────────────────── -->
 <nav class="nav" id="nav" aria-label="Navegación principal">
   <div class="nav__inner">
-    <a href="#" class="nav__logo" aria-label="TerritorIA 7G inicio">TerritorIA 7G</a>
+    <a href="#" class="nav__logo" aria-label="TerritorIA 7G inicio">
+      <img src="Logo_con_nombre.png" alt="TerritorIA 7G" class="nav__logo-img">
+    </a>
     <ul class="nav__links" id="navLinks" role="list">
       <li><a href="#problema">El problema</a></li>
       <li><a href="#servicios">Servicios</a></li>
@@ -660,6 +680,9 @@ button{cursor:pointer;font:inherit;border:none;background:none}
   </div>
 
   <div class="hero__content">
+    <div class="hero__brand">
+      <img src="Logo_con_nombre.png" alt="TerritorIA 7G" class="hero__brand-logo">
+    </div>
     <p class="hero__eyebrow" aria-label="Propuesta">Consultoría de desarrollo territorial</p>
     <h1 class="hero__h1 display" id="hero-h1">
       Convertimos<br>proyectos en<br><em>resultados reales</em>
@@ -1051,7 +1074,10 @@ button{cursor:pointer;font:inherit;border:none;background:none}
 <script>
 /* ── NAV scroll state ───────────────────────────────────── */
 const nav = document.getElementById('nav');
-const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+const onScroll = () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+  nav.classList.toggle('at-top', window.scrollY < 10);
+};
 window.addEventListener('scroll', onScroll, {passive:true});
 onScroll();
 
