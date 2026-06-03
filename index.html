@@ -253,7 +253,11 @@ button{cursor:pointer;font:inherit;border:none;background:none}
   opacity:0;
   animation:fadeScale 1s var(--ease-out) 0.4s forwards;
 }
-.hero__mark svg{width:min(46vw,520px)}
+.hero__mark img{
+  width:min(62vw,780px);
+  height:auto;
+  filter:drop-shadow(0 24px 48px rgba(0,0,0,.18));
+}
 
 @keyframes fadeUp{
   from{opacity:0;transform:translateY(20px)}
@@ -547,6 +551,40 @@ button{cursor:pointer;font:inherit;border:none;background:none}
 }
 .cta-final__email a{color:var(--verde-light);font-weight:500}
 .cta-final__email a:hover{text-decoration:underline}
+.cta-final__logo{
+  display:block;
+  width:min(420px,72vw);
+  height:auto;
+  margin:0 auto 2.5rem;
+}
+.cta-whatsapp{
+  display:inline-flex;align-items:center;gap:14px;
+  margin-top:1.75rem;padding:1.1rem 1.75rem;
+  border-radius:var(--radius-lg);
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(167,195,111,0.35);
+  color:#fff;
+  font-size:0.95rem;font-weight:500;
+  transition:background 0.2s,border-color 0.2s,transform 0.15s var(--ease-out);
+}
+.cta-whatsapp:hover{
+  background:rgba(255,255,255,0.12);
+  border-color:rgba(167,195,111,0.55);
+  transform:translateY(-2px);
+}
+.cta-whatsapp__icon{
+  flex-shrink:0;
+  width:44px;height:44px;border-radius:50%;
+  background:#25D366;
+  display:flex;align-items:center;justify-content:center;
+}
+.cta-whatsapp__icon svg{width:24px;height:24px;fill:#fff}
+.cta-whatsapp__text{text-align:left;line-height:1.4}
+.cta-whatsapp__text strong{
+  display:block;
+  font-family:'Montserrat',sans-serif;font-weight:800;
+  font-size:1rem;color:var(--verde-light);
+}
 
 /* ─── FOOTER ─────────────────────────────────────────────────────────── */
 .footer{
@@ -573,7 +611,13 @@ button{cursor:pointer;font:inherit;border:none;background:none}
 /* ─── RESPONSIVE ─────────────────────────────────────────────────────── */
 @media(max-width:1024px){
   .hero{grid-template-columns:1fr}
-  .hero__mark{display:none}
+  .hero__mark{
+    display:flex;
+    justify-content:center;
+    padding:0 clamp(1rem,5vw,2.5rem) 3rem;
+    margin-top:-1rem;
+  }
+  .hero__mark img{width:min(85vw,520px)}
   .hero__content{grid-column:1;padding-top:calc(60px + 3rem)}
   .principles__grid{grid-template-columns:repeat(4,1fr)}
   .team__grid{grid-template-columns:repeat(2,1fr)}
@@ -659,11 +703,7 @@ button{cursor:pointer;font:inherit;border:none;background:none}
   </div>
 
   <div class="hero__mark" aria-hidden="true">
-    <svg viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Large 7G mark -->
-      <path d="M60 80H320L160 460" stroke="rgba(245,247,246,0.12)" stroke-width="90" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M420 160C390 132 350 128 318 148C282 170 278 210 298 238C318 266 360 268 392 248V220H340" stroke="#A7C36F" stroke-width="38" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
-    </svg>
+    <img src="Logo_con_nombre.png" alt="">
   </div>
 </section>
 
@@ -965,7 +1005,7 @@ button{cursor:pointer;font:inherit;border:none;background:none}
 
       <article class="team-card reveal reveal-delay-4">
         <div class="team-card__photo">
-          <img src="Davo_Territoria7g.png" alt="José David Torres Huertas" loading="lazy" onerror="this.parentNode.innerHTML='<div class=&quot;team-card__photo-placeholder&quot;><span>JT</span></div>'">
+          <img src="Davo_Territoria7g.jpg" alt="José David Torres Huertas" loading="lazy" onerror="this.parentNode.innerHTML='<div class=&quot;team-card__photo-placeholder&quot;><span>JT</span></div>'">
         </div>
         <div class="team-card__body">
           <p class="team-card__role">CTO · Socio fundador</p>
@@ -982,17 +1022,29 @@ button{cursor:pointer;font:inherit;border:none;background:none}
 <section class="cta-final section" id="contacto" aria-labelledby="cta-h2">
   <div class="cta-final__blob" aria-hidden="true"></div>
   <div class="wrap" style="position:relative">
-    <p class="label cta-final__eyebrow reveal">Conversemos</p>
-    <h2 class="heading cta-final__title reveal reveal-delay-1" id="cta-h2">
+    <img src="Logo_con_nombre.png" alt="TerritorIA 7G" class="cta-final__logo reveal">
+    <p class="label cta-final__eyebrow reveal reveal-delay-1">Conversemos</p>
+    <h2 class="heading cta-final__title reveal reveal-delay-2" id="cta-h2">
       ¿Sus proyectos se quedan<br>en el papel sin ejecutarse?
     </h2>
-    <p class="cta-final__sub reveal reveal-delay-2">
+    <p class="cta-final__sub reveal reveal-delay-3">
       Estamos listos para acompañarle a convertir sus ideas en resultados reales en territorio.
     </p>
-    <div class="reveal reveal-delay-3">
+    <div class="reveal reveal-delay-4">
       <a href="mailto:territoria7g@gmail.com" class="btn-primary" style="display:inline-flex">
         Escribirnos
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="reveal reveal-delay-4">
+      <a href="https://wa.me/573004951817" class="cta-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Escríbenos al WhatsApp +57 300 4951817">
+        <span class="cta-whatsapp__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </span>
+        <span class="cta-whatsapp__text">
+          <strong>Escríbenos al WhatsApp</strong>
+          +57 300 495 1817
+        </span>
       </a>
     </div>
     <p class="cta-final__email reveal reveal-delay-4">
